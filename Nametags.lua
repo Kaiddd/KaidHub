@@ -1,0 +1,78 @@
+--[[
+    If you found this for whatever reason
+    1. You can change whatever you want in this and use it without credit, I don't mind
+    2. This nametags script was made by Kaid#0001 because #ad uwu, join discord.gg/hatsune
+--]]
+
+local plrs = game:GetService("Players")
+
+local UI = game:GetObjects("rbxassetid://7437010836")[1]
+if syn then
+    syn.protect_gui(UI)
+end
+
+local color = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+
+local rainbow_text = coroutine.wrap(function(tag)
+    while tag ~= nil do
+        wait()
+        tag.TextColor3 = color
+    end
+end)
+
+local cool = { -- Userid, Title, Color (1 = rainbow, 0 = no rainbow, 2 = pink)
+    {79685992, "Kaid (Owner)", 2},
+    {462238701, "Kaid (Owner)", 2},
+    {1572849739, "Nokia (Owner)", 2},
+    {140508772, "Wag (Co-Owner)", 1},
+    {326421573, "Uncensorable (Cool)", 1},
+    {1342893287, "Vil (Cool)", 1},
+    {2538015051, "Sanity (Cool)", 1},
+    {1220717180, "Vil (Cool)", 1}
+}
+
+for i,v in pairs(plrs:GetChildren()) do
+    for i,a in pairs(cool) do
+        if v.UserId == a[1] then
+            local tag = UI:Clone()
+            tag.Nameplate.Text = a[2]
+            if a[3] == 1 then
+                rainbow_text(tag.Nameplate)
+            end
+            if a[3] == 0 then
+                tag.Nameplate.TextColor3 = Color3.fromRGB(255, 255, 255)
+            end
+            if a[3] == 2 then
+                tag.Nameplate.TextColor3 = Color3.fromRGB(241, 166, 245)
+            end
+            tag.Parent = v.Character.Head
+        end
+    end
+end
+
+plrs.PlayerAdded:Connect(function(plr)
+    for i,a in pairs(cool) do
+        if v.UserId == a[1] then
+            local tag = UI:Clone()
+            tag.Nameplate.Text = a[2]
+            if a[3] == 1 then
+                rainbow_text(tag.Nameplate)
+            end
+            if a[3] == 0 then
+                tag.Nameplate.TextColor3 = Color3.fromRGB(255, 255, 255)
+            end
+            if a[3] == 2 then
+                tag.Nameplate.TextColor3 = Color3.fromRGB(241, 166, 245)
+            end
+            tag.Parent = v.Character.Head
+        end
+    end
+end)
+
+local rainbow = coroutine.wrap(function()
+    while wait() do
+        color = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+    end
+end)
+
+rainbow()
