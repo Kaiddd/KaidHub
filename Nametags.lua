@@ -22,14 +22,13 @@ end)
 
 local cool = { -- Userid, Title, Color (1 = rainbow, 0 = no rainbow, 2 = pink)
     {79685992, "Kaid (Owner)", 2},
-    {141930191, "<font color="#f6b7c7">Pozm</font> <font color="#a8c6f5"><3</font> (Owner)", 2}
+    {141930191, "Pozm <3 (Owner)", 1}
 }
 
 for i,v in pairs(plrs:GetChildren()) do
     for i,a in pairs(cool) do
         if v.UserId == a[1] then
             local tag = UI:Clone()
-            tag.Nameplate.RichText = true
             tag.Nameplate.Text = a[2]
             if a[3] == 1 then
                 rainbow_text(tag.Nameplate)
@@ -49,7 +48,6 @@ plrs.PlayerAdded:Connect(function(plr)
     for i,a in pairs(cool) do
         if v.UserId == a[1] then
             local tag = UI:Clone()
-            tag.Nameplate.RichText = true
             tag.Nameplate.Text = a[2]
             if a[3] == 1 then
                 rainbow_text(tag.Nameplate)
