@@ -20,7 +20,7 @@ local rainbow_text = coroutine.wrap(function(tag)
     end
 end)
 
-local cool = { -- Userid, Title, Color (1 = rainbow, 0 = no rainbow, 2 = pink)
+local cool = { -- Userid, Title, Color (1 = rainbow, 0 = no rainbow, 2 = pink, 3 = blue)
     {79685992, "Kaid (Owner)", 2},
     {141930191, "Pozm <3 (Owner)", 1}
 }
@@ -37,7 +37,10 @@ for i,v in pairs(plrs:GetChildren()) do
                 tag.Nameplate.TextColor3 = Color3.fromRGB(255, 255, 255)
             end
             if a[3] == 2 then
-                tag.Nameplate.TextColor3 = Color3.fromRGB(241, 166, 245)
+                tag.Nameplate.TextColor3 = Color3.fromRGB(250, 157, 179)
+            end
+            if a[3] == 3 then
+                tag.Nameplate.TextColor3 = Color3.fromRGB(157, 200, 251)
             end
             tag.Parent = v.Character.Head
         end
@@ -57,6 +60,9 @@ plrs.PlayerAdded:Connect(function(plr)
             end
             if a[3] == 2 then
                 tag.Nameplate.TextColor3 = Color3.fromRGB(241, 166, 245)
+            end
+            if a[3] == 3 then
+                tag.Nameplate.TextColor3 = Color3.fromRGB(157, 200, 251)
             end
             tag.Parent = v.Character.Head
         end
