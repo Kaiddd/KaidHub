@@ -1,0 +1,253 @@
+local UserInputService = game:GetService("UserInputService")
+
+local uwu = {}
+
+uwu.isType = function(value,typ)
+	
+	return typeof(value) == typ
+	
+end
+
+local yeah = {}
+
+
+yeah.inTable = function(value,tab)
+	
+	local found = false
+	for _,v in next,tab do
+		if v==value then
+			found = true
+			break;
+		end
+	end
+	return found
+	
+end
+
+
+
+yeah.map = function(tbl, func)
+	
+	local newtbl = {}
+	
+	for i,v in next,tbl do
+		
+		table.insert(newtbl,i,func(v))
+		
+	end
+	
+	return newtbl
+	
+end
+
+--- Lua-side duplication of the API of events on Roblox objects.
+-- Signals are needed for to ensure that for local events objects are passed by
+-- reference rather than by value where possible, as the BindableEvent objects
+-- always pass signal arguments by value, meaning tables will be deep copied.
+-- Roblox's deep copy method parses to a non-lua table compatable format.
+-- @classmod Signal
+
+local ENABLE_TRACEBACK = false
+
+local Signal = {}
+Signal.__index = Signal
+Signal.ClassName = "Signal"
+
+--- Constructs a new signal.
+-- @constructor Signal.new()
+-- @treturn Signal
+function Signal.new()
+	local self = setmetatable({}, Signal)
+
+	self._bindableEvent = Instance.new("BindableEvent")
+	self._argData = nil
+	self._argCount = nil -- Prevent edge case of :Fire("A", nil) --> "A" instead of "A", nil
+
+	self._source = ENABLE_TRACEBACK and debug.traceback() or ""
+
+	return self
+end
+
+--- Fire the event with the given arguments. All handlers will be invoked. Handlers follow
+-- Roblox signal conventions.
+-- @param ... Variable arguments to pass to handler
+-- @treturn nil
+function Signal:Fire(...)
+	if not self._bindableEvent then
+		warn(("Signal is already destroyed. %s"):format(self._source))
+		return
+	end
+
+	self._argData = {...}
+	self._argCount = select("#", ...)
+	self._bindableEvent:Fire()
+	-- self._argData = nil
+	-- self._argCount = nil
+end
+
+--- Connect a new handler to the event. Returns a connection object that can be disconnected.
+-- @tparam function handler Function handler called with arguments passed when `:Fire(...)` is called
+-- @treturn Connection Connection object that can be disconnected
+function Signal:Connect(handler)
+	if not (type(handler) == "function") then
+		error(("connect(%s)"):format(typeof(handler)), 2)
+	end
+
+	return self._bindableEvent.Event:Connect(function()
+		handler(unpack(self._argData, 1, self._argCount))
+	end)
+end
+
+--- Wait for fire to be called, and return the arguments it was given.
+-- @treturn ... Variable arguments from connection
+function Signal:Wait()
+	self._bindableEvent.Event:Wait()
+	assert(self._argData, "Missing arg data, likely due to :TweenSize/Position corrupting threadrefs.")
+	return unpack(self._argData, 1, self._argCount)
+end
+
+--- Disconnects all connected events to the signal. Voids the signal as unusable.
+-- @treturn nil
+function Signal:Destroy()
+	if self._bindableEvent then
+		self._bindableEvent:Destroy()
+		self._bindableEvent = nil
+	end
+
+	self._argData = nil
+	self._argCount = nil
+
+	setmetatable(self, nil)
+end
+
+local Underliner = {}
+Underliner.__index = Underliner
+Underliner.New = function(SpawnOn,args)
+
+	-- contructor 
+	local args = setmetatable({},args)
+	print(args)
+	local self = setmetatable( {}, Underliner)
+	self._Obj = assert(uwu.isType(SpawnOn,"Instance") and SpawnOn.ClassName == "TextBox" and SpawnOn or false, "Object to spawn on is NOT a TextBox!")
+	self._Underline = Instance.new("ImageLabel")
+	self.Active = false;
+	
+	self.onExpand = Signal.new()
+	self.onContract = Signal.new()
+	self.beforeContract = Signal.new()
+	self.beforeExpand = Signal.new()
+
+	
+	self.DColor = uwu.isType(args.Color,"Color3") and args.Color or Color3.fromRGB(100, 53, 255)
+	self.Color = self.DColor
+
+	self.__Hooked = false;
+	self.__fHookedObj = nil;
+	self.__flHookedObj = nil;
+
+
+	--Predictor Properties:
+
+	self._Underline.Name = "underline"
+	self._Underline.Parent = SpawnOn
+	self._Underline.BackgroundColor3 = Color3.fromRGB(100, 53, 255)
+	self._Underline.BackgroundTransparency = 1.000
+	self._Underline.Position = UDim2.new(0.5, 0, 0.949999988, 0)
+	self._Underline.Size = UDim2.new(0, 0, 0.0500000007, 0)
+	self._Underline.ZIndex = 81
+	self._Underline.Image = "rbxassetid://3570695787"
+	self._Underline.ImageColor3 = self.Color
+	self._Underline.ScaleType = Enum.ScaleType.Slice
+	self._Underline.SliceCenter = Rect.new(100, 100, 100, 100)
+	self._Underline.SliceScale = 0.130
+	-- end of contructor 
+
+	return self
+
+end
+
+
+function Underliner:expand() 
+	local con = true
+	self.beforeExpand:Fire(function() con=false end)
+
+	if (con) then
+		self._Underline:TweenSizeAndPosition(UDim2.fromScale(1,.05), UDim2.fromScale(0,.95), Enum.EasingDirection.Out,Enum.EasingStyle.Quad,.5,true)
+		self.onExpand:Fire()
+		self.Active = true;
+	end
+
+end
+
+function Underliner:contract()
+	
+	local con = true
+	self.beforeContract:Fire(function() con=false end)
+	
+	if (con) then
+		
+		self._Underline:TweenSizeAndPosition(UDim2.fromScale(0,.05), UDim2.fromScale(.5,.95) , Enum.EasingDirection.Out,Enum.EasingStyle.Quad,.5,true)
+		self.onContract:Fire()
+		self.Active = false;
+		
+	end
+	
+
+end
+
+function Underliner:resetColor()
+
+	self._Underline.ImageColor3 = self.DColor
+
+
+end
+
+function Underliner:changeColor(c3)
+	
+	local c = assert(types.isType(c3,"Color3") and c3 or false,"You must provide a Color3 argument to change the colour")
+	self._Underline.ImageColor3 = c self.Color = c
+	
+end
+
+function Underliner:hook()
+
+	assert(not self.__Hooked or not self.__HookedObj or not self.__fHookedObj,"Already hooked!")
+	self.__fHookedObj = self._Obj.Focused:Connect(function() 
+		
+		self:expand()
+
+	end)
+	self.__flHookedObj = self._Obj.FocusLost:Connect(function() 
+		self:contract()
+	end)
+
+
+	self.__Hooked = true;
+
+
+
+end
+
+function Underliner:unHook()
+
+	assert(self.__Hooked,"Not hooked!")
+	self.__fHookedObj:Disconnect()
+	self.__flHookedObj:Disconnect()
+	self.__Hooked = false;
+
+end
+
+
+function Underliner:dispose()
+
+	self._Underline:Destroy()
+
+	self.onExpand:Destroy()
+	self.onContract:Destroy()
+	self.beforeExpand:Destroy()
+	self.beforeContract:Destroy()
+
+	self:unHook()
+	self = nil
+
+end
