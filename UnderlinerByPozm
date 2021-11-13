@@ -120,7 +120,7 @@ function Signal:Destroy()
 	setmetatable(self, nil)
 end
 
-Underliner = {}
+local Underliner = {}
 Underliner.__index = Underliner
 Underliner.New = function(SpawnOn,args)
 
@@ -251,3 +251,4 @@ function Underliner:dispose()
 	self = nil
 
 end
+return Underliner
