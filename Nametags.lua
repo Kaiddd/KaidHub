@@ -3,7 +3,10 @@
     1. You can change whatever you want in this and use it without credit, I don't mind
     2. This nametags script was made by Kaid#0001 because #ad uwu, join discord.gg/hatsune
 --]]
-
+if _G.NametagsRan == true then
+    return
+end
+_G.NametagsRan = true
 local plrs = game:GetService("Players")
 
 local UI = game:GetObjects("rbxassetid://7437010836")[1]
