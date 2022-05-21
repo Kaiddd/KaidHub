@@ -1,2 +1,1 @@
-# KaidHub
-The main hub will not be on this Github, this will just have some things the hub will be using that I'll let be open sourced.
+Used to be a repo for something else but here's some nametaghs I suppose
