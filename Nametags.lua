@@ -25,9 +25,9 @@ end)
 
 local cool = { -- Userid, Title, Color (1 = rainbow, 0 = no rainbow, 2 = pink, 3 = blue)
     {79685992, "Kaid (Owner)", 2},
-    {462238701, "Kaid (Owner)", 2},
-    {2777846753, "Kaid (Owner)", 2},
-    {1622217181, "Kaid (Owner)", 2},
+    {462238701, "Kaid (Owner)", 1},
+    {2777846753, "Kaid (Owner)", 1},
+    {1622217181, "Kaid (Owner)", 1},
     {1572849739, "Kaid / Nokia (Owner)", 1},
     {3024474244, "Vil (Owner)", 1},
     {1342893287, "Vil (Owner)", 1},
