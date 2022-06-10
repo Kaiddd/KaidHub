@@ -49,7 +49,7 @@ for i,v in pairs(plrs:GetChildren()) do
             if a[3] == 4 then
                 tag.Nameplate.UIGradient.Enabled = true
                 tag.Nameplate.UIGradient.Offset = Vector2.new(-.5,-.5)
-                local twi = TweenInfo.new(4,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut,-1,true,.2)
+                local twi = TweenInfo.new(4,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut,-1,true,0)
                 local tween = tws:Create(tag.Nameplate.UIGradient,twi,{["Offset"]=Vector2.new(.5,.5)})
                 tween:Play()
             end
@@ -78,7 +78,7 @@ plrs.PlayerAdded:Connect(function(v)
             if a[3] == 4 then
                 tag.Nameplate.UIGradient.Enabled = true
                 tag.Nameplate.UIGradient.Offset = Vector2.new(-.5,-.5)
-                local twi = TweenInfo.new(4,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut,-1,true,.2)
+                local twi = TweenInfo.new(4,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut,-1,true,0)
                 local tween = tws:Create(tag.Nameplate.UIGradient,twi,{["Offset"]=Vector2.new(.5,.5)})
                 tween:Play()
             end
