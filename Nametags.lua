@@ -30,8 +30,7 @@ local cool = { -- Userid, Title, Color (1 = rainbow, 0 = no rainbow, 2 = pink, 3
     {1622217181, "Kaid (Owner)", 1},
     {1572849739, "Kaid / Nokia (Owner)", 1},
     {3024474244, "Vil (Owner)", 1},
-    {1342893287, "Vil (Owner)", 1},
-    {516034734, "i_db (Kewl)", 3}
+    {1342893287, "Vil (Owner)", 1}
 }
 
 for i,v in pairs(plrs:GetChildren()) do
