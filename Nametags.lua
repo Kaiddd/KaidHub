@@ -9,7 +9,10 @@ end
 _G.NametagsRan = true
 local plrs = game:GetService("Players")
 
-local UI = game:GetObjects("rbxassetid://7437010836")[1]
+local UI = game:GetObjects("rbxassetid://9869414318")[1]
+math.randomseed(tick())
+UI.Name = math.random(10000,99999)
+
 if syn then
     syn.protect_gui(UI)
 end
@@ -23,15 +26,17 @@ local rainbow_text = coroutine.wrap(function(tag)
     end
 end)
 
-local cool = { -- Userid, Title, Color (1 = rainbow, 0 = no rainbow, 2 = pink, 3 = blue)
-    {79685992, "Kaid (Owner)", 2},
-    {462238701, "Kaid (Owner)", 1},
-    {2777846753, "Kaid (Owner)", 1},
-    {1622217181, "Kaid (Owner)", 1},
-    {1572849739, "Kaid / Nokia (Owner)", 1},
+local cool = { -- Userid, Title, Color (1 = rainbow, 0 = no rainbow, 2 = pink, 3 = blue, 4 = transgender)
+    {79685992, "Kaid (Owner)", 4},
+    {462238701, "Kaid (Owner)", 4},
+    {2777846753, "Kaid (Owner)", 4},
+    {1622217181, "Kaid (Owner)", 4},
+    {1572849739, "Kaid / Nokia (Owner)", 4},
     {3024474244, "Vil (Owner)", 1},
     {1342893287, "Vil (Owner)", 1}
 }
+
+local tws = game:GetService("TweenService")
 
 for i,v in pairs(plrs:GetChildren()) do
     for i,a in pairs(cool) do
@@ -40,6 +45,13 @@ for i,v in pairs(plrs:GetChildren()) do
             tag.Nameplate.Text = a[2]
             if a[3] == 1 then
                 rainbow_text(tag.Nameplate)
+            end
+            if a[3] == 4 then
+                tag.Nameplate.UIGradient.Enabled = true
+                tag.Nameplate.UIGradient.Offset = Vector2.new(-.5,-.5)
+                local twi = TweenInfo.new(4,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut,-1,true,.2)
+                local tween = tws:Create(tag.Nameplate.UIGradient,twi,{["Offset"]=Vector2.new(.5,.5)})
+                tween:Play()
             end
             if a[3] == 0 then
                 tag.Nameplate.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -62,6 +74,13 @@ plrs.PlayerAdded:Connect(function(v)
             tag.Nameplate.Text = a[2]
             if a[3] == 1 then
                 rainbow_text(tag.Nameplate)
+            end
+            if a[3] == 4 then
+                tag.Nameplate.UIGradient.Enabled = true
+                tag.Nameplate.UIGradient.Offset = Vector2.new(-.5,-.5)
+                local twi = TweenInfo.new(4,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut,-1,true,.2)
+                local tween = tws:Create(tag.Nameplate.UIGradient,twi,{["Offset"]=Vector2.new(.5,.5)})
+                tween:Play()
             end
             if a[3] == 0 then
                 tag.Nameplate.TextColor3 = Color3.fromRGB(255, 255, 255)
