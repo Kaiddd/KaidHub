@@ -39,6 +39,35 @@ local cool = { -- Userid, Title, Color (1 = rainbow, 0 = no rainbow, 2 = pink, 3
 local tws = game:GetService("TweenService")
 
 for i,v in pairs(plrs:GetChildren()) do
+    v.CharacterAdded:Connect(function()
+        repeat task.wait() until v.Character and v.Character:FindFirstChild("Head")
+        for i,a in pairs(cool) do
+            if v.UserId == a[1] and v.Character and v.Character:FindFirstChild("Head") then
+                local tag = UI:Clone()
+                tag.Nameplate.Text = a[2]
+                if a[3] == 1 then
+                    rainbow_text(tag.Nameplate)
+                end
+                if a[3] == 4 then
+                    tag.Nameplate.UIGradient.Enabled = true
+                    tag.Nameplate.UIGradient.Offset = Vector2.new(-.5,-.5)
+                    local twi = TweenInfo.new(4,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut,-1,true,0)
+                    local tween = tws:Create(tag.Nameplate.UIGradient,twi,{["Offset"]=Vector2.new(.5,.5)})
+                    tween:Play()
+                end
+                if a[3] == 0 then
+                    tag.Nameplate.TextColor3 = Color3.fromRGB(255, 255, 255)
+                end
+                if a[3] == 2 then
+                    tag.Nameplate.TextColor3 = Color3.fromRGB(250, 157, 179)
+                end
+                if a[3] == 3 then
+                    tag.Nameplate.TextColor3 = Color3.fromRGB(157, 200, 251)
+                end
+                tag.Parent = v.Character.Head
+            end
+        end
+    end)
     for i,a in pairs(cool) do
         if v.UserId == a[1] and v.Character and v.Character:FindFirstChild("Head") then
             local tag = UI:Clone()
@@ -68,32 +97,35 @@ for i,v in pairs(plrs:GetChildren()) do
 end
 
 plrs.PlayerAdded:Connect(function(v)
-    for i,a in pairs(cool) do
-        if v.UserId == a[1] and v.Character and v.Character:FindFirstChild("Head") then
-            local tag = UI:Clone()
-            tag.Nameplate.Text = a[2]
-            if a[3] == 1 then
-                rainbow_text(tag.Nameplate)
+    v.CharacterAdded:Connect(function()
+        repeat task.wait() until v.Character and v.Character:FindFirstChild("Head")
+        for i,a in pairs(cool) do
+            if v.UserId == a[1] and v.Character and v.Character:FindFirstChild("Head") then
+                local tag = UI:Clone()
+                tag.Nameplate.Text = a[2]
+                if a[3] == 1 then
+                    rainbow_text(tag.Nameplate)
+                end
+                if a[3] == 4 then
+                    tag.Nameplate.UIGradient.Enabled = true
+                    tag.Nameplate.UIGradient.Offset = Vector2.new(-.5,-.5)
+                    local twi = TweenInfo.new(4,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut,-1,true,0)
+                    local tween = tws:Create(tag.Nameplate.UIGradient,twi,{["Offset"]=Vector2.new(.5,.5)})
+                    tween:Play()
+                end
+                if a[3] == 0 then
+                    tag.Nameplate.TextColor3 = Color3.fromRGB(255, 255, 255)
+                end
+                if a[3] == 2 then
+                    tag.Nameplate.TextColor3 = Color3.fromRGB(241, 166, 245)
+                end
+                if a[3] == 3 then
+                    tag.Nameplate.TextColor3 = Color3.fromRGB(157, 200, 251)
+                end
+                tag.Parent = v.Character.Head
             end
-            if a[3] == 4 then
-                tag.Nameplate.UIGradient.Enabled = true
-                tag.Nameplate.UIGradient.Offset = Vector2.new(-.5,-.5)
-                local twi = TweenInfo.new(4,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut,-1,true,0)
-                local tween = tws:Create(tag.Nameplate.UIGradient,twi,{["Offset"]=Vector2.new(.5,.5)})
-                tween:Play()
-            end
-            if a[3] == 0 then
-                tag.Nameplate.TextColor3 = Color3.fromRGB(255, 255, 255)
-            end
-            if a[3] == 2 then
-                tag.Nameplate.TextColor3 = Color3.fromRGB(241, 166, 245)
-            end
-            if a[3] == 3 then
-                tag.Nameplate.TextColor3 = Color3.fromRGB(157, 200, 251)
-            end
-            tag.Parent = v.Character.Head
         end
-    end
+    end)
 end)
 
 coroutine.wrap(function()
