@@ -40,7 +40,7 @@ local tws = game:GetService("TweenService")
 
 for i,v in pairs(plrs:GetChildren()) do
     for i,a in pairs(cool) do
-        if v.UserId == a[1] then
+        if v.UserId == a[1] and v.Character and v.Character:FindFirstChild("Head") then
             local tag = UI:Clone()
             tag.Nameplate.Text = a[2]
             if a[3] == 1 then
@@ -69,7 +69,7 @@ end
 
 plrs.PlayerAdded:Connect(function(v)
     for i,a in pairs(cool) do
-        if v.UserId == a[1] then
+        if v.UserId == a[1] and v.Character and v.Character:FindFirstChild("Head") then
             local tag = UI:Clone()
             tag.Nameplate.Text = a[2]
             if a[3] == 1 then
