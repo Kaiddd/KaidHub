@@ -1,7 +1,7 @@
 --[[
     If you found this for whatever reason
     1. You can change whatever you want in this and use it without credit, I don't mind
-    2. This nametags script was made by Kaid#0001 because #ad uwu, join discord.gg/hatsune
+    2. This nametags script was made by Kaid#0001 because #ad uwu
 --]]
 if _G.NametagsRan then
     return
