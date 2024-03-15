@@ -1,7 +1,7 @@
 --[[
     If you found this for whatever reason
     1. You can change whatever you want in this and use it without credit, I don't mind
-    2. This nametags script was made by Kaid#0001 because #ad uwu
+    2. This nametags script was made by Kaede
 --]]
 if _G.NametagsRan then
     return
@@ -11,11 +11,7 @@ local plrs = game:GetService("Players")
 
 local UI = game:GetObjects("rbxassetid://9869414318")[1]
 math.randomseed(tick())
-UI.Name = syn and syn.crypt and syn.crypt.random and syn.crypt.random(32) or math.random(10000,99999)
-
-if syn and syn.protect_gui then
-    syn.protect_gui(UI)
-end
+UI.Name = math.random(10000,99999)
 
 local color = Color3.fromHSV(tick() % 5 / 5, 1, 1)
 
